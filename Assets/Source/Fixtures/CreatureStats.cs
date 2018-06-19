@@ -6,5 +6,6 @@ namespace DAZ4.Fixtures
         public int MaxHealth;
         public int Strength;
         public int Defense;
+        public float Speed;
     }
 }

@@ -8,7 +8,8 @@ namespace DAZ4.Creatures
 
     public abstract class Creature : Base
     {
-        public Transform Transform {
+        public Transform Transform
+        {
             get;
             private set;
         }
@@ -19,13 +20,14 @@ namespace DAZ4.Creatures
             private set;
         }
 
-        public Collider2D Body
+        public Rigidbody2D Body
         {
             get;
             private set;
         }
 
-        public CreatureStats Stats {
+        public CreatureStats Stats
+        {
             get;
             private set;
         }
@@ -34,7 +36,7 @@ namespace DAZ4.Creatures
         {
             Transform = GetComponent<Transform>();
             Graphics = GetComponent<SpriteRenderer>();
-            Body = GetComponent<Collider2D>();
+            Body = GetComponent<Rigidbody2D>();
             Stats = GetComponent<CreatureStats>();
         }
 
@@ -43,23 +45,25 @@ namespace DAZ4.Creatures
         /// negative values indicate healing.
         /// </summary>
         /// <param name="damage">The damage to apply.</param>
-        public virtual void TakeDamage(Damage damage) {
-            if (Stats) {
-                Stats.Health -= damage.Amount;
+        public virtual void TakeDamage(Damage damage)
+        {
+            if (Stats)
+            {
+                Stats.Health = Mathf.Clamp(Stats.Health - damage.Amount, 0, Stats.MaxHealth);
 
-                // Clamp health between 0 and maximum value.
-                Stats.Health = Math.Max(Stats.Health, 0);
-                Stats.Health = Math.Min(Stats.Health, Stats.MaxHealth);
-
-                if (Stats.Health <= 0) {
+                if (Stats.Health <= 0)
+                {
                     Die();
                 }
-            } else {
+            }
+            else
+            {
                 throw new Exception(String.Format("Cannot take damage - no stats component attached to {0}.", this));
             }
         }
 
-        protected virtual void Die() {
+        protected virtual void Die()
+        {
             // This creature is dead.
             // ...
         }

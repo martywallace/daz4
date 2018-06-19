@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 623638217}
   - component: {fileID: 623638216}
   - component: {fileID: 623638215}
+  - component: {fileID: 623638219}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -194,6 +195,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &623638219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623638214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ad59fda1a754543b9c508a4b835524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Focus: {fileID: 1900183139}
+  Interpolation: 0.1
 --- !u!1 &770479692
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +317,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770479692}
   m_LocalRotation: {x: -0, y: -0, z: -0.67878294, w: 0.734339}
-  m_LocalPosition: {x: -0.3, y: -2.64, z: -7.101338}
+  m_LocalPosition: {x: 0.23, y: -2.13, z: -7.101338}
   m_LocalScale: {x: 0.31520063, y: 0.31520063, z: 0.31520063}
   m_Children: []
   m_Father: {fileID: 0}
@@ -510,6 +524,7 @@ GameObject:
   - component: {fileID: 1900183143}
   - component: {fileID: 1900183142}
   - component: {fileID: 1900183144}
+  - component: {fileID: 1900183145}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -598,9 +613,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.018091798}
   serializedVersion: 2
-  m_Radius: 0.275
+  m_Radius: 0.19499123
 --- !u!114 &1900183144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,3 +631,24 @@ MonoBehaviour:
   MaxHealth: 100
   Strength: 0
   Defense: 0
+  Speed: 5
+--- !u!50 &1900183145
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1900183139}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 4
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
