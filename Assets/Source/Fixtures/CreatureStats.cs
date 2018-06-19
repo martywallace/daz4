@@ -1,20 +1,10 @@
-using UnityEngine;
-using System.Collections;
-
-namespace Fixtures
+namespace DAZ4.Fixtures
 {
-    public class CreatureStats : MonoBehaviour
+    public class CreatureStats : Base
     {
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            //
-        }
+        public int Health;
+        public int MaxHealth;
+        public int Strength;
+        public int Defense;
     }
 }

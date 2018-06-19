@@ -1,15 +1,12 @@
-﻿using UnityEngine;
-
-namespace DAZ4.Creatures
+﻿namespace DAZ4.Creatures
 {
     public class Player : Creature
     {
-        protected override void Start()
+        protected override void Update()
         {
-            base.Start();
+            base.Update();
 
-            Debug.Log(Graphics);
-            Debug.Log(Body);
+            //
         }
     }
 }
