@@ -1,4 +1,6 @@
-﻿namespace DAZ4.Creatures
+﻿using UnityEngine;
+
+namespace DAZ4.Creatures
 {
     public class Player : Creature
     {
@@ -6,7 +8,9 @@
         {
             base.Update();
 
-            //
+            if (Transform) {
+                //
+            }
         }
     }
 }

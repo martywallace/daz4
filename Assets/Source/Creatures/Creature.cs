@@ -8,6 +8,11 @@ namespace DAZ4.Creatures
 
     public abstract class Creature : Base
     {
+        public Transform Transform {
+            get;
+            private set;
+        }
+
         public SpriteRenderer Graphics
         {
             get;
@@ -27,6 +32,7 @@ namespace DAZ4.Creatures
 
         protected override void Start()
         {
+            Transform = GetComponent<Transform>();
             Graphics = GetComponent<SpriteRenderer>();
             Body = GetComponent<Collider2D>();
             Stats = GetComponent<CreatureStats>();
@@ -56,13 +62,6 @@ namespace DAZ4.Creatures
         protected virtual void Die() {
             // This creature is dead.
             // ...
-        }
-
-        protected void LookAt(Vector2 position) {
-            if (Graphics) {
-                // todo: rotate graphics to face item
-                // ...
-            }
         }
     }
 }
