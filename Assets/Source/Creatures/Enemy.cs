@@ -9,20 +9,31 @@ namespace DAZ4.Creatures
             private set;
         }
 
+        protected Vector3 Cursor {
+            get;
+            private set;
+        }
+
+        public int CursorDelay;
+
         protected override void Start()
         {
             base.Start();
 
             Player = GameObject.Find("Player");
+            Cursor = new Vector3(Transform.position.x, Transform.position.y);
         }
 
         protected override void Update()
         {
             base.Update();
 
-            // Face player.
-            Vector3 delta = Player.transform.position - Transform.position;
-            Transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg, Vector3.forward);
+            // Move the cursor toward the player.
+            Cursor -= (Cursor - Player.transform.position) / CursorDelay;
+
+            // Standard AI - face and move toward the cursor.
+            FacePoint(Cursor);
+            MoveForward();
         }
     }
 }

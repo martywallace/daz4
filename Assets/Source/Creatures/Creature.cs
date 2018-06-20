@@ -34,6 +34,7 @@ namespace DAZ4.Creatures
 
         protected override void Start()
         {
+            //
             Transform = GetComponent<Transform>();
             Graphics = GetComponent<SpriteRenderer>();
             Body = GetComponent<Rigidbody2D>();
@@ -66,6 +67,24 @@ namespace DAZ4.Creatures
         {
             // This creature is dead.
             // ...
+        }
+
+        protected void FacePoint(Vector3 point) {
+            if (Transform)
+            {
+                Vector3 delta = point - Transform.position;
+                Transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg, Vector3.forward);
+            }
+        }
+
+        protected void MoveForward()
+        {
+            if (Transform && Body)
+            {
+                float speed = Stats ? Stats.Speed : 1;
+
+                Body.AddForce(Transform.right * speed);
+            }
         }
     }
 }
