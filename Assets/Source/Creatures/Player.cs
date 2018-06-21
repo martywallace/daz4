@@ -8,7 +8,7 @@ namespace DAZ4.Creatures
         {
             base.Update();
 
-            FacePoint(Input.mousePosition - Camera.main.WorldToScreenPoint(Transform.position));
+            FacePoint(Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position));
 
             int horizontalInput = 0;
             int verticalInput = 0;

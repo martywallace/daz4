@@ -22,7 +22,7 @@ namespace DAZ4.Creatures
 
         protected float DistanceToPlayer {
             get {
-                return Vector3.Distance(Transform.position, Player.transform.position);
+                return Vector3.Distance(transform.position, Player.transform.position);
             }
         }
 
@@ -31,7 +31,7 @@ namespace DAZ4.Creatures
             base.Start();
 
             Player = GameObject.Find("Player");
-            Cursor = new Vector3(Transform.position.x, Transform.position.y);
+            Cursor = new Vector3(transform.position.x, transform.position.y);
 
             // Start off immediately looking at the player.
             FacePoint(Player.transform.position);

@@ -7,12 +7,6 @@ namespace DAZ4
         public GameObject Focus;
         public float Interpolation;
 
-        public Transform Transform
-        {
-            get;
-            private set;
-        }
-
         protected Vector3 Cursor {
             get;
             private set;
@@ -20,7 +14,6 @@ namespace DAZ4
 
         void Start()
         {
-            Transform = GetComponent<Transform>();
             Cursor = new Vector3(Focus.transform.position.x, Focus.transform.position.y);
         }
 
@@ -29,7 +22,7 @@ namespace DAZ4
             Vector3 destination = Vector3.Lerp(Focus.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Interpolation);
 
             Cursor -= (Cursor - destination) / 10;
-            Transform.position = new Vector3(Cursor.x, Cursor.y, Transform.position.z);
+            transform.position = new Vector3(Cursor.x, Cursor.y, transform.position.z);
         }
     }
 }

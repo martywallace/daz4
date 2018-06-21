@@ -8,12 +8,6 @@ namespace DAZ4.Creatures
 
     public abstract class Creature : Base
     {
-        public Transform Transform
-        {
-            get;
-            private set;
-        }
-
         public SpriteRenderer Graphics
         {
             get;
@@ -34,7 +28,6 @@ namespace DAZ4.Creatures
 
         protected override void Start()
         {
-            Transform = GetComponent<Transform>();
             Graphics = GetComponent<SpriteRenderer>();
             Body = GetComponent<Rigidbody2D>();
             Stats = GetComponent<CreatureStats>();
@@ -74,20 +67,17 @@ namespace DAZ4.Creatures
         }
 
         protected void FacePoint(Vector3 point) {
-            if (Transform)
-            {
-                Vector3 delta = point - Transform.position;
-                Transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg, Vector3.forward);
-            }
+            Vector3 delta = point - transform.position;
+            transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg, Vector3.forward);
         }
 
         protected void MoveForward()
         {
-            if (Transform && Body)
+            if (Body)
             {
                 float speed = Stats ? Stats.Speed : 1;
 
-                Body.AddForce(Transform.right * speed);
+                Body.AddForce(transform.right * speed);
             }
         }
     }
