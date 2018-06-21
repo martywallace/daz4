@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using DAZ4.Fixtures;
+using DAZ4.Data;
 
 namespace DAZ4.Creatures
 {
@@ -6,7 +8,7 @@ namespace DAZ4.Creatures
     {
 
         public int CursorDelay;
-        public int MeleeRange;
+        public float MeleeRange;
 
         protected GameObject Player {
             get;
@@ -16,6 +18,12 @@ namespace DAZ4.Creatures
         protected Vector3 Cursor {
             get;
             private set;
+        }
+
+        protected float DistanceToPlayer {
+            get {
+                return Vector3.Distance(Transform.position, Player.transform.position);
+            }
         }
 
         protected override void Start()
@@ -39,6 +47,11 @@ namespace DAZ4.Creatures
             // Standard AI - face and move toward the cursor.
             FacePoint(Cursor);
             MoveForward();
+
+            if (DistanceToPlayer < MeleeRange) {
+                Damage damage = new Damage(1);
+                Player.GetComponent<Creature>().TakeDamage(damage);
+            }
         }
     }
 }

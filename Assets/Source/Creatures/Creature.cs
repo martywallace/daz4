@@ -49,6 +49,11 @@ namespace DAZ4.Creatures
         {
             if (Stats)
             {
+                if (Stats.Health == 0 && damage.Amount > 0) {
+                    // No need to take damage when we are already dead.
+                    return;
+                }
+
                 Stats.Health = Mathf.Clamp(Stats.Health - damage.Amount, 0, Stats.MaxHealth);
 
                 if (Stats.Health <= 0)

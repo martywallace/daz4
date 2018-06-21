@@ -13,16 +13,23 @@ namespace DAZ4
             private set;
         }
 
+        protected Vector3 Cursor {
+            get;
+            private set;
+        }
+
         void Start()
         {
             Transform = GetComponent<Transform>();
+            Cursor = new Vector3(Focus.transform.position.x, Focus.transform.position.y);
         }
 
         void LateUpdate()
         {
-            Vector3 delta = Vector3.Lerp(Focus.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Interpolation);
+            Vector3 destination = Vector3.Lerp(Focus.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Interpolation);
 
-            Transform.position = new Vector3(delta.x, delta.y, Transform.position.z);
+            Cursor -= (Cursor - destination) / 10;
+            Transform.position = new Vector3(Cursor.x, Cursor.y, Transform.position.z);
         }
     }
 }

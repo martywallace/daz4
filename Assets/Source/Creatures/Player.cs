@@ -10,13 +10,15 @@ namespace DAZ4.Creatures
 
             FacePoint(Input.mousePosition - Camera.main.WorldToScreenPoint(Transform.position));
 
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            int horizontalInput = 0;
+            int verticalInput = 0;
 
-            if (
-                horizontalInput < -0.01 || horizontalInput > 0.01
-                || verticalInput < -0.01 || verticalInput > 0.01
-            )
+            if (Input.GetKey(KeyCode.W)) verticalInput = 1;
+            else if (Input.GetKey(KeyCode.S)) verticalInput = -1;
+            if (Input.GetKey(KeyCode.A)) horizontalInput = -1;
+            else if (Input.GetKey(KeyCode.D)) horizontalInput = 1;
+
+            if (verticalInput != 0 || horizontalInput != 0)
             {
                 float inputAngle = Mathf.Atan2(verticalInput, horizontalInput);
 
@@ -27,6 +29,15 @@ namespace DAZ4.Creatures
 
                 Body.AddForce(force);
             }
+
+            //
+        }
+
+        protected override void Die()
+        {
+            base.Die();
+
+            Debug.Log("Player has died");
         }
     }
 }
