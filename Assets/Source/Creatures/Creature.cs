@@ -34,7 +34,6 @@ namespace DAZ4.Creatures
 
         protected override void Start()
         {
-            //
             Transform = GetComponent<Transform>();
             Graphics = GetComponent<SpriteRenderer>();
             Body = GetComponent<Rigidbody2D>();

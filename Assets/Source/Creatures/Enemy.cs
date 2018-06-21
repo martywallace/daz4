@@ -4,6 +4,10 @@ namespace DAZ4.Creatures
 {
     public class Enemy : Creature
     {
+
+        public int CursorDelay;
+        public int MeleeRange;
+
         protected GameObject Player {
             get;
             private set;
@@ -14,14 +18,15 @@ namespace DAZ4.Creatures
             private set;
         }
 
-        public int CursorDelay;
-
         protected override void Start()
         {
             base.Start();
 
             Player = GameObject.Find("Player");
             Cursor = new Vector3(Transform.position.x, Transform.position.y);
+
+            // Start off immediately looking at the player.
+            FacePoint(Player.transform.position);
         }
 
         protected override void Update()
