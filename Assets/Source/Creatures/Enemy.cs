@@ -7,8 +7,11 @@ namespace DAZ4.Creatures
     public class Enemy : Creature
     {
 
-        public int CursorDelay;
-        public float MeleeRange;
+        [SerializeField]
+        private readonly int cursorDelay;
+
+        [SerializeField]
+        private readonly float meleeRange;
 
         protected GameObject Player {
             get;
@@ -42,13 +45,13 @@ namespace DAZ4.Creatures
             base.Update();
 
             // Move the cursor toward the player.
-            Cursor -= (Cursor - Player.transform.position) / CursorDelay;
+            Cursor -= (Cursor - Player.transform.position) / cursorDelay;
 
             // Standard AI - face and move toward the cursor.
             FacePoint(Cursor);
             MoveForward();
 
-            if (DistanceToPlayer < MeleeRange) {
+            if (DistanceToPlayer < meleeRange) {
                 Damage damage = new Damage(1);
                 Player.GetComponent<Creature>().TakeDamage(damage);
             }

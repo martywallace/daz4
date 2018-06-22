@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using DAZ4.Weapons;
 
 namespace DAZ4.Creatures
 {
     public class Player : Creature
     {
+        [SerializeField]
+        private GameObject weaponGameObject;
+
         protected override void Update()
         {
             base.Update();
@@ -30,7 +34,12 @@ namespace DAZ4.Creatures
                 Body.AddForce(force);
             }
 
-            //
+            if (Input.GetMouseButton(0)) {
+                if (weaponGameObject) {
+                    Weapon weapon = weaponGameObject.GetComponent<Weapon>();
+                    weapon.Attack();
+                }
+            }
         }
 
         protected override void Die()
