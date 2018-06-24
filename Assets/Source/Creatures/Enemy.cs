@@ -8,10 +8,10 @@ namespace DAZ4.Creatures
     {
 
         [SerializeField]
-        private readonly int cursorDelay;
+        private int cursorDelay;
 
         [SerializeField]
-        private readonly float meleeRange;
+        private float meleeRange;
 
         protected GameObject Player {
             get;
@@ -55,6 +55,14 @@ namespace DAZ4.Creatures
                 Damage damage = new Damage(1);
                 Player.GetComponent<Creature>().TakeDamage(damage);
             }
+        }
+
+        protected override void Die()
+        {
+            base.Die();
+
+            // Simply destroy this enemy.
+            Destroy(gameObject);
         }
     }
 }
