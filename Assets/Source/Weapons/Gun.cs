@@ -20,12 +20,9 @@ namespace DAZ4.Weapons
 
                     if (creature)
                     {
-                        if (Attributes)
-                        {
-                            Damage damage = new Damage(Attributes.Power);
+                        Damage damage = new Damage(Power);
 
-                            creature.TakeDamage(damage);
-                        }
+                        creature.TakeDamage(damage);
                     }
                 }
                 else

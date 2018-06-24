@@ -17,10 +17,23 @@ namespace DAZ4.Creatures
             int horizontalInput = 0;
             int verticalInput = 0;
 
-            if (Input.GetKey(KeyCode.W)) verticalInput = 1;
-            else if (Input.GetKey(KeyCode.S)) verticalInput = -1;
-            if (Input.GetKey(KeyCode.A)) horizontalInput = -1;
-            else if (Input.GetKey(KeyCode.D)) horizontalInput = 1;
+            if (Input.GetKey(KeyCode.W))
+            {
+                verticalInput = 1;
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                verticalInput = -1;
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                horizontalInput = -1;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                horizontalInput = 1;
+            }
 
             if (verticalInput != 0 || horizontalInput != 0)
             {

@@ -8,11 +8,8 @@ namespace DAZ4.Weapons
 
         private int cooldownTimer;
 
-        protected WeaponAttributes Attributes
-        {
-            get;
-            private set;
-        }
+        public int Power;
+        public int Cooldown;
 
         protected bool CanAttack
         {
@@ -21,20 +18,10 @@ namespace DAZ4.Weapons
             }
         }
 
-        protected override void Start()
-        {
-            base.Start();
-
-            Attributes = GetComponent<WeaponAttributes>();
-        }
-
         public abstract void Attack();
 
         protected void ResetCooldown() {
-            if (Attributes)
-            {
-                cooldownTimer = Attributes.Cooldown;
-            }
+            cooldownTimer = Cooldown;
         }
 
 		protected override void Update()

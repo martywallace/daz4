@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50647907534372206}
   - component: {fileID: 58269624636907326}
   - component: {fileID: 114110330622925250}
+  - component: {fileID: 114800712799876676}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1546474378713014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2, y: -1.85, z: -7.108942}
+  m_LocalPosition: {x: -4.39, y: -2.49, z: -7.108942}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,7 +90,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce225048b0494ebcb330b71bcf19be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorDelay: 20
+  cursorDelay: 25
+  meleeRange: 8.21
+--- !u!114 &114800712799876676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546474378713014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2523854df951d49588b72e28e5815b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 10
+  MaxHealth: 10
+  Strength: 0
+  Defense: 0
+  Speed: 2
 --- !u!212 &212529092672707514
 SpriteRenderer:
   m_ObjectHideFlags: 1

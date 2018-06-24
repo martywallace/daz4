@@ -2,9 +2,14 @@
 {
     public struct Damage
     {
-        public int Amount;
+        public int Amount
+        {
+            get;
+            private set;
+        }
 
-        public Damage(int amount) {
+        public Damage(int amount)
+        {
             Amount = amount;
         }
     }
