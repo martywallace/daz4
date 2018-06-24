@@ -44,6 +44,9 @@ TagManager:
   - name: Ground
     uniqueID: 2829516365
     locked: 0
+  - name: Pickups
+    uniqueID: 2007671611
+    locked: 0
   - name: Creatures
     uniqueID: 3762120379
     locked: 0

@@ -3,7 +3,7 @@ using DAZ4.Data;
 
 namespace DAZ4.Creatures
 {
-    public class Enemy : Creature
+    public abstract class Enemy : Creature
     {
 
         [SerializeField]
