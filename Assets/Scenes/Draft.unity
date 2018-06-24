@@ -414,6 +414,27 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ded6f330c6ee4637add9bdd49bc1a77, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1121384462 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1546474378713014, guid: 28012b73242ac48c99ddbf798114082e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1958822585}
+--- !u!114 &1121384468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1121384462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2523854df951d49588b72e28e5815b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 10
+  MaxHealth: 10
+  Strength: 0
+  Defense: 0
+  Speed: 2
 --- !u!1 &1296668282
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +735,7 @@ GameObject:
   - component: {fileID: 1884666080}
   - component: {fileID: 1884666081}
   - component: {fileID: 1884666082}
+  - component: {fileID: 1884666083}
   m_Layer: 0
   m_Name: Handgun
   m_TagString: Untagged
@@ -790,7 +812,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df401cc3d619149cbad694f746f2f445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1884666083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1884666079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9ed82866d744fa39e6c5eb2d3b3186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Power: 0
+  Cooldown: 50
 --- !u!1 &1900183139
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +897,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1900183139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.75, y: -2.438, z: 1}
+  m_LocalPosition: {x: -4.18, y: -3.27, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1884666080}
