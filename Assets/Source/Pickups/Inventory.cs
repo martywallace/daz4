@@ -5,13 +5,7 @@ namespace DAZ4.Pickups
 {
     public class Inventory : MonoBehaviour
     {
-        [SerializeField]
-        private List<PickupData> contents;
-
-        public void Start()
-        {
-            contents = new List<PickupData>();
-        }
+        private List<PickupData> contents = new List<PickupData>();
 
         public void Add(PickupData item)
         {

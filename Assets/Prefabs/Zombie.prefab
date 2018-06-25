@@ -107,6 +107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorDelay: 25
   meleeRange: 8.21
+  loot:
+  - {fileID: 1849321585264018, guid: 5136a157d136949fdbe8219c4f9d5f81, type: 2}
+  dropLootChance: 0.9
 --- !u!212 &212529092672707514
 SpriteRenderer:
   m_ObjectHideFlags: 1

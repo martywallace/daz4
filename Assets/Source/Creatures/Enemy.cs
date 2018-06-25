@@ -12,6 +12,12 @@ namespace DAZ4.Creatures
         [SerializeField]
         private float meleeRange;
 
+        [SerializeField]
+        private GameObject[] loot;
+
+        [SerializeField]
+        private float dropLootChance;
+
         protected GameObject Player {
             get;
             private set;
@@ -60,7 +66,21 @@ namespace DAZ4.Creatures
         {
             base.Die();
 
-            // Simply destroy this enemy.
+            // Select a pickup to drop.
+            if (loot.Length > 0)
+            {
+                if (Random.value <= dropLootChance)
+                {
+                    // Select and instantiate a random pickup from the
+                    // configured list of possible options.
+                    GameObject selection = loot[Random.Range(0, loot.Length)];
+                    GameObject pickup = Instantiate(selection);
+
+                    pickup.transform.position = transform.position;
+                }
+            }
+
+            // Remove this enemy from the game.
             Destroy(gameObject);
         }
     }

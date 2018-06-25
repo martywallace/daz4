@@ -10,7 +10,15 @@ namespace DAZ4.Weapons
         {
             if (CanAttack)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right);
+                LayerMask layers = 1;
+
+                // Add layer exclusions.
+                foreach (string layer in IgnoredLayers())
+                {
+                    layers |= (1 << LayerMask.NameToLayer(layer));
+                }
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10, ~layers);
 
                 if (hit.collider)
                 {
@@ -32,6 +40,11 @@ namespace DAZ4.Weapons
 
                 ResetCooldown();
             }
+        }
+
+        protected virtual string[] IgnoredLayers()
+        {
+            return new string[] { "Pickups" };
         }
     }
 }

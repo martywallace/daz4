@@ -41,7 +41,7 @@ namespace DAZ4.Pickups
 
             if (inventory)
             {
-                inventory.Add(GetData());
+                inventory.Add(GetData()); 
             }
 
             Destroy(gameObject);
