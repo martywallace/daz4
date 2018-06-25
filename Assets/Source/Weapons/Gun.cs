@@ -6,6 +6,17 @@ namespace DAZ4.Weapons
 {
     public abstract class Gun : Weapon
     {
+        
+        public static readonly int MaxBulletDistance = 10;
+
+        [SerializeField]
+        [Tooltip("The type of bullet this weapon fires.")]
+        private GameObject bullet;
+
+        [SerializeField]
+        [Tooltip("Maximum error angle in radians.")]
+        private float errorRadians;
+
         public override void Attack()
         {
             if (CanAttack)
@@ -18,12 +29,15 @@ namespace DAZ4.Weapons
                     layers |= (1 << LayerMask.NameToLayer(layer));
                 }
 
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10, ~layers);
+                float straight = Mathf.Atan2(transform.right.y, transform.right.x);
+                float actual = straight + Random.Range(-errorRadians, errorRadians);
+                Vector3 direction = new Vector2(Mathf.Cos(actual), Mathf.Sin(actual));
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, MaxBulletDistance, ~layers);
 
                 if (hit.collider)
                 {
-                    Debug.DrawLine(transform.position, hit.point, Color.white, 0.1f, false);
-
+                    CreateBullet(transform.position, hit.point);
                     Creature creature = hit.collider.gameObject.GetComponent<Creature>();
 
                     if (creature)
@@ -35,11 +49,25 @@ namespace DAZ4.Weapons
                 }
                 else
                 {
-                    Debug.DrawLine(transform.position, transform.position + transform.right * 40, Color.white, 0.1f, false);
+                    CreateBullet(transform.position, transform.position + direction * MaxBulletDistance);
                 }
 
                 ResetCooldown();
             }
+        }
+
+        protected GameObject CreateBullet(Vector3 from, Vector3 to)
+        {
+            // todo: fix this
+            from.z = to.z = -1;
+
+            GameObject instance = Instantiate(bullet);
+            LineRenderer line = instance.GetComponent<LineRenderer>();
+            Vector3[] positions = new Vector3[] { from, to };
+
+            line.SetPositions(positions);
+
+            return instance;
         }
 
         protected virtual string[] IgnoredLayers()

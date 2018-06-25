@@ -9,7 +9,7 @@ namespace DAZ4.Pickups
 
         public void Add(PickupData item)
         {
-            contents.Add(item);
+            
         }
 
         public void Remove(PickupData item)
