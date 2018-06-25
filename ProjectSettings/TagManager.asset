@@ -13,9 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Pickups
+  - Creatures
+  - Obstacles
   - 
   - 
   - 
@@ -50,6 +50,6 @@ TagManager:
   - name: Creatures
     uniqueID: 3762120379
     locked: 0
-  - name: Features
+  - name: Obstacles
     uniqueID: 1466134713
     locked: 0

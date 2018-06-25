@@ -7,9 +7,13 @@ namespace DAZ4.Pickups
         [SerializeField]
         private float initialMovement;
 
+        private GameObject player;
+
         protected override void Start()
         {
             base.Start();
+
+            player = GameObject.FindWithTag("Player");
 
             Rigidbody2D body = GetComponent<Rigidbody2D>();
 
@@ -22,15 +26,27 @@ namespace DAZ4.Pickups
             body.angularVelocity = Random.Range(-100, 100);
         }
 
-        public void OnTriggerEnter(Collider collider)
+        public void OnTriggerEnter2D(Collider2D collider)
         {
-            Debug.Log(collider);
+            if (collider.gameObject.CompareTag("Player"))
+            {
+                Consume();
+            }
         }
-
+         
 
         protected virtual void Consume()
         {
+            Inventory inventory = player.GetComponent<Inventory>();
+
+            if (inventory)
+            {
+                inventory.Add(GetData());
+            }
+
             Destroy(gameObject);
         }
+
+        protected abstract PickupData GetData();
     }
 }

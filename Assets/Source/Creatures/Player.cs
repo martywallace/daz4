@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using DAZ4.Weapons;
+using DAZ4.Pickups;
 
 namespace DAZ4.Creatures
 {
@@ -7,6 +8,19 @@ namespace DAZ4.Creatures
     {
         [SerializeField]
         private GameObject weaponGameObject;
+
+        public Inventory Inventory
+        {
+            get;
+            private set;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            Inventory = GetComponent<Inventory>();
+        }
 
         protected override void Update()
         {
