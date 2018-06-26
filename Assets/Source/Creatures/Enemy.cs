@@ -8,6 +8,7 @@ namespace DAZ4.Creatures
 
         public static readonly int MinRoamCooldown = 50;
         public static readonly int MaxRoamCooldown = 500;
+        public static readonly int DelayUntilRoam = 65;
 
         [SerializeField]
         private int cursorDelay;
@@ -41,6 +42,12 @@ namespace DAZ4.Creatures
         private Vector2 roamTarget;
 
         protected Vector2 PlayerLastSeenAt
+        {
+            get;
+            private set;
+        }
+
+        protected int TimeSincePlayerLastSeen
         {
             get;
             private set;
@@ -99,6 +106,7 @@ namespace DAZ4.Creatures
             Player = GameObject.Find("Player");
             Cursor = new Vector3(transform.position.x, transform.position.y);
             PlayerLastSeenAt = transform.position;
+            TimeSincePlayerLastSeen = DelayUntilRoam;
 
             // Start off immediately looking at the player.
             FacePoint(Player.transform.position);
@@ -116,6 +124,7 @@ namespace DAZ4.Creatures
                 // Remember the last place we saw the player in case it goes out
                 // of sight.
                 PlayerLastSeenAt = transform.position;
+                TimeSincePlayerLastSeen = 0;
 
                 // Move directly forward if we can see the player.
                 MoveForward();
@@ -129,6 +138,7 @@ namespace DAZ4.Creatures
 
                 // Roam around the place where we last saw the player.
                 roamCooldown -= 1;
+                TimeSincePlayerLastSeen += 1;
 
                 if (roamCooldown <= 0)
                 {
@@ -136,13 +146,16 @@ namespace DAZ4.Creatures
                     roamTarget = PlayerLastSeenAt + Random.insideUnitCircle * roamRadius;
                 }
 
-                // Move the cursor toward the randomly chosen roam target.
-                Cursor -= (Cursor - roamTarget) / cursorDelay;
-
-                if (Vector2.Distance(transform.position, roamTarget) > 0.5)
+                if (TimeSincePlayerLastSeen >= DelayUntilRoam)
                 {
-                    // Move forward if not super close to target.
-                    MoveForward();
+                    // Move the cursor toward the randomly chosen roam target.
+                    Cursor -= (Cursor - roamTarget) / cursorDelay;
+
+                    if (Vector2.Distance(transform.position, roamTarget) > 0.1)
+                    {
+                        // Move forward if not super close to target.
+                        MoveForward();
+                    }
                 }
             }
 
