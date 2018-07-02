@@ -37,15 +37,7 @@ namespace DAZ4.Weapons
 
                 if (hit.collider)
                 {
-                    CreateBullet(transform.position, hit.point);
-                    Creature creature = hit.collider.gameObject.GetComponent<Creature>();
-
-                    if (creature)
-                    {
-                        Damage damage = new Damage(Power);
-
-                        creature.TakeDamage(damage);
-                    }
+                    Hit(hit);
                 }
                 else
                 {
@@ -53,6 +45,30 @@ namespace DAZ4.Weapons
                 }
 
                 ResetCooldown();
+            }
+        }
+
+        protected void Hit(RaycastHit2D hit)
+        {
+            // Draw the bullet.
+            CreateBullet(transform.position, hit.point);
+
+            // Activate potential particles.
+            ParticleSystem particles = hit.collider.gameObject.GetComponent<ParticleSystem>();
+
+            if (particles)
+            {
+                particles.Play();
+            }
+
+            // Determine if the object was a creature and should receive damage.
+            Creature creature = hit.collider.gameObject.GetComponent<Creature>();
+
+            if (creature)
+            {
+                Damage damage = new Damage(Power);
+
+                creature.TakeDamage(damage);
             }
         }
 

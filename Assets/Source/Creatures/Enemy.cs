@@ -22,6 +22,14 @@ namespace DAZ4.Creatures
         private float meleeRange;
 
         [SerializeField]
+        private int primaryAttackMinCooldown;
+
+        [SerializeField]
+        private int primaryAttackMaxCooldown;
+
+        private int primaryAttackCooldown;
+
+        [SerializeField]
         [Tooltip("Possible items that can be dropped by this enemy.")]
         private GameObject[] loot;
 
@@ -89,7 +97,7 @@ namespace DAZ4.Creatures
             {
                 if (DistanceToPlayer <= visualRange)
                 {
-                    LayerMask mask = 1 << LayerMask.NameToLayer("Creatures") | 1 << LayerMask.NameToLayer("Obstacles");
+                    LayerMask mask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Obstacles");
                     RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(Mathf.Cos(AngleToPlayer), Mathf.Sin(AngleToPlayer), 0), visualRange, mask);
 
                     return hit.collider && hit.collider.CompareTag("Player");
@@ -162,11 +170,28 @@ namespace DAZ4.Creatures
             // Standard AI - face and move toward the cursor.
             FacePoint(Cursor);
 
-            if (DistanceToPlayer < meleeRange)
+            if (primaryAttackCooldown <= 0)
             {
-                Damage damage = new Damage(1);
-                Player.GetComponent<Creature>().TakeDamage(damage);
+                if (DistanceToPlayer < meleeRange)
+                {
+                    primaryAttackCooldown = Random.Range(
+                        primaryAttackMinCooldown,
+                        primaryAttackMaxCooldown
+                    );
+
+                    PrimaryAttack();
+                }
             }
+            else
+            {
+                primaryAttackCooldown -= 1;
+            }
+        }
+
+        protected virtual void PrimaryAttack()
+        {
+            Damage damage = new Damage(1);
+            Player.GetComponent<Creature>().TakeDamage(damage);
         }
 
         protected override void Die()

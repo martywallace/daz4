@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using DAZ4.Weapons;
 using DAZ4.Pickups;
+using DAZ4.Data;
 
 namespace DAZ4.Creatures
 {
@@ -15,11 +17,31 @@ namespace DAZ4.Creatures
             private set;
         }
 
+        public Text HealthTextBox
+        {
+            get
+            {
+                GameObject health = GameObject.Find("HealthTextBox");
+
+                if (health)
+                {
+                    return health.GetComponent<Text>();
+                }
+
+                return null;
+            }
+        }
+
         protected override void Start()
         {
             base.Start();
 
             Inventory = GetComponent<Inventory>();
+
+            if (HealthTextBox)
+            {
+                HealthTextBox.text = Stats.Health.ToString();
+            }
         }
 
         protected override void Update()
@@ -66,6 +88,16 @@ namespace DAZ4.Creatures
                     Weapon weapon = weaponGameObject.GetComponent<Weapon>();
                     weapon.Attack();
                 }
+            }
+        }
+
+        public override void TakeDamage(Damage damage)
+        {
+            base.TakeDamage(damage);
+
+            if (HealthTextBox)
+            {
+                HealthTextBox.text = Stats.Health.ToString();
             }
         }
 
