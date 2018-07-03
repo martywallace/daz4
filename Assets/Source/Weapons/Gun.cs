@@ -45,6 +45,9 @@ namespace DAZ4.Weapons
                 }
 
                 ResetCooldown();
+
+                // Add camera shake.
+                Camera.main.GetComponent<Viewport>().Shake(3, 0.04f);
             }
         }
 
