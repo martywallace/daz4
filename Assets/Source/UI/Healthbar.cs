@@ -1,26 +1,19 @@
 ﻿using UnityEngine;
+using DAZ4.Creatures;
 
 namespace DAZ4.UI
 {
     public class Healthbar : MonoBehaviour
     {
-        
-        [SerializeField]
-        private Color backgroundFill;
-
-        [SerializeField]
-        private Color foregroundFill;
-
-        [SerializeField]
-        private Rect shape;
-
         private float percentage = 1;
-        private Texture2D backgroundTexture;
-        private Texture2D foregroundTexture;
-        private GUIStyle backgroundStyle;
-        private GUIStyle foregroundStyle;
 
-        public float Percent
+        private SpriteRenderer background;
+        private SpriteRenderer fill;
+        private CreatureStats stats;
+
+        public GameObject Owner;
+
+        public float Percentage
         {
             get
             {
@@ -30,33 +23,32 @@ namespace DAZ4.UI
             set
             {
                 percentage = Mathf.Clamp(value, 0, 1);
+                fill.transform.localScale = new Vector3(percentage, fill.transform.localScale.y);
             }
         }
 
-        protected virtual void OnGUI()
+        protected void Start()
         {
-            //shape.x = gameObject.transform.position.x;
-            //shape.y = gameObject.transform.position.y;
+            background = transform.Find("Background").GetComponent<SpriteRenderer>();
+            fill = transform.Find("Fill").GetComponent<SpriteRenderer>();
 
-            backgroundTexture = CreateTexture(backgroundFill);
-            backgroundStyle = new GUIStyle();
-            backgroundStyle.normal.background = backgroundTexture;
-
-            foregroundTexture = CreateTexture(foregroundFill);
-            foregroundStyle = new GUIStyle();
-            foregroundStyle.normal.background = foregroundTexture;
-
-            GUI.Box(shape, GUIContent.none, foregroundStyle);
+            if (Owner)
+            {
+                stats = Owner.GetComponent<CreatureStats>();
+            }
         }
 
-        private Texture2D CreateTexture(Color color)
+        protected void Update()
         {
-            Texture2D texture = new Texture2D(1, 1);
+            if (stats)
+            {
+                Debug.Log(stats.Health);
+                Debug.Log(stats.MaxHealth);
+                Debug.Log((float)stats.Health / (float)stats.MaxHealth);
+                percentage = (float)stats.Health / (float)stats.MaxHealth;
+            }
 
-            texture.SetPixel(0, 0, color);
-            texture.Apply();
-
-            return texture;
+            transform.position = Owner.transform.position;
         }
     }
 }

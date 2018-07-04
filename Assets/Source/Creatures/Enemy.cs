@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using DAZ4.Data;
+using DAZ4.UI;
 
 namespace DAZ4.Creatures
 {
@@ -9,6 +10,7 @@ namespace DAZ4.Creatures
         public static readonly int MinRoamCooldown = 50;
         public static readonly int MaxRoamCooldown = 500;
         public static readonly int DelayUntilRoam = 65;
+        public static readonly int HealthbarDisplayDuration = 50;
 
         [SerializeField]
         private int cursorDelay;
@@ -46,6 +48,9 @@ namespace DAZ4.Creatures
         private float roamRadius;
 
         private int roamCooldown = 0;
+
+        private int healthbarDisplayCooldown = 0;
+        private GameObject healthbar;
 
         private Vector2 roamTarget;
 
@@ -186,12 +191,58 @@ namespace DAZ4.Creatures
             {
                 primaryAttackCooldown -= 1;
             }
+
+            if (healthbarDisplayCooldown > 0)
+            {
+                healthbarDisplayCooldown -= 1;
+
+                if (healthbarDisplayCooldown <= 0)
+                {
+                    DestroyHealthbar();
+                }
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            DestroyHealthbar();
         }
 
         protected virtual void PrimaryAttack()
         {
             Damage damage = new Damage(1);
             Player.GetComponent<Creature>().TakeDamage(damage);
+        }
+
+        protected void DestroyHealthbar()
+        {
+            healthbarDisplayCooldown = 0;
+
+            if (healthbar)
+            {
+                Destroy(healthbar);
+            }
+        }
+
+        public override void TakeDamage(Damage damage)
+        {
+            base.TakeDamage(damage);
+
+            if (Stats)
+            {
+                if (Stats.Health > 0)
+                {
+                    healthbarDisplayCooldown = HealthbarDisplayDuration;
+
+                    // Show healthbar.
+                    if (!healthbar)
+                    {
+                        healthbar = Instantiate(Assets.Healthbar);
+                        healthbar.transform.position = transform.position;
+                        healthbar.GetComponent<Healthbar>().Owner = gameObject;
+                    }
+                }
+            }
         }
 
         protected override void Die()
